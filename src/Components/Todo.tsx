@@ -106,7 +106,7 @@ function Todo() {
   };
 
   const name: any = useRef(null);
-  const useRefe = () => {
+  const validation = () => {
     if (!name.current.value) {
       setError(true);
     } else {
@@ -144,13 +144,13 @@ function Todo() {
             ref={name}
             onKeyDown={(e) => {
               if (e.key === "Enter" && changeBtn == false) {
-                useRefe();
+                validation();
               }
             }}
           />
           <div className="btnContainer">
             {changeBtn == false ? (
-              <button className="btn_style12" onClick={useRefe}>
+              <button className="btn_style12" onClick={validation}>
                 <i
                   className="fas fa-circle-plus"
                   style={{ color: "#000000" }}
