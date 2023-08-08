@@ -16,7 +16,9 @@ function Todo() {
 
   async function fetchTodos() {
     try {
-      const response = await axios.get("https://real-ruby-slug-wrap.cyclic.app/api/todos");
+      const response = await axios.get(
+        "https://real-ruby-slug-wrap.cyclic.app/api/todos"
+      );
       setEachItem(response.data);
     } catch (error) {
       console.error("Error fetching todos:", error);
@@ -44,9 +46,12 @@ function Todo() {
       });
 
       try {
-        await axios.put(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${editIndex}`, {
-          text: inputVal,
-        });
+        await axios.put(
+          `https://real-ruby-slug-wrap.cyclic.app/api/todos/${editIndex}`,
+          {
+            text: inputVal,
+          }
+        );
         setEachItem(updatedItems);
         setEditIndex(null);
         steInputVal("");
@@ -68,11 +73,14 @@ function Todo() {
       const currentTime = new Date().toLocaleTimeString();
       const itemId = Math.random();
 
-      const response = await axios.post("https://real-ruby-slug-wrap.cyclic.app/api/todos", {
-        text: inputVal,
-        textId: itemId,
-        time: currentTime,
-      });
+      const response = await axios.post(
+        "https://real-ruby-slug-wrap.cyclic.app/api/todos",
+        {
+          text: inputVal,
+          textId: itemId,
+          time: currentTime,
+        }
+      );
       setEachItem((prev) => [...prev, response.data]);
 
       steInputVal("");
@@ -83,7 +91,9 @@ function Todo() {
 
   const removeAll = async () => {
     try {
-      const response = await axios.delete("https://real-ruby-slug-wrap.cyclic.app/api/todos");
+      const response = await axios.delete(
+        "https://real-ruby-slug-wrap.cyclic.app/api/todos"
+      );
       console.log(response.data.message);
       setEachItem([]);
     } catch (error) {
@@ -93,9 +103,12 @@ function Todo() {
 
   const removeItem = async (textId: any) => {
     try {
-      await fetch(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${textId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://real-ruby-slug-wrap.cyclic.app/api/todos/${textId}`,
+        {
+          method: "DELETE",
+        }
+      );
       const remove_item = eachItem.filter((_element: any, ind) => {
         return textId !== _element._id;
       });
@@ -189,13 +202,12 @@ function Todo() {
         </div>
       )}
       <div className="flex justify-center">
-        <div className='parent' 
-        // className="border w-[30%] mt-4 rounded-3xl bg-[#ffffffb4] opacity-60 pt-[20px] "
+        <div
+          className="parent"
+          // className="border w-[30%] mt-4 rounded-3xl bg-[#ffffffb4] opacity-60 pt-[20px] "
         >
-          
           {eachItem.map((element: any, ind) => {
             return (
-              
               <div key={ind} className="showItems">
                 <div className="eachItem">
                   <div className="showItem">
@@ -231,7 +243,8 @@ function Todo() {
       </div>
       <div className="main_btn">
         <button className="btn_styl" onClick={removeAll}>
-          Remove All
+          <span>Remove All </span>
+          <i className="far fa-trash-alt" style={{ color: "black" }}></i>
         </button>
       </div>
     </>
