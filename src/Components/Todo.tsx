@@ -16,7 +16,7 @@ function Todo() {
 
   async function fetchTodos() {
     try {
-      const response = await axios.get("http://localhost:8000/api/todos");
+      const response = await axios.get("https://real-ruby-slug-wrap.cyclic.app/api/todos");
       setEachItem(response.data);
     } catch (error) {
       console.error("Error fetching todos:", error);
@@ -44,7 +44,7 @@ function Todo() {
       });
 
       try {
-        await axios.put(`http://localhost:8000/api/todos/${editIndex}`, {
+        await axios.put(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${editIndex}`, {
           text: inputVal,
         });
         setEachItem(updatedItems);
@@ -68,7 +68,7 @@ function Todo() {
       const currentTime = new Date().toLocaleTimeString();
       const itemId = Math.random();
 
-      const response = await axios.post("http://localhost:8000/api/todos", {
+      const response = await axios.post("https://real-ruby-slug-wrap.cyclic.app/api/todos", {
         text: inputVal,
         textId: itemId,
         time: currentTime,
@@ -83,7 +83,7 @@ function Todo() {
 
   const removeAll = async () => {
     try {
-      const response = await axios.delete("http://localhost:8000/api/todos");
+      const response = await axios.delete("https://real-ruby-slug-wrap.cyclic.app/api/todos");
       console.log(response.data.message);
       setEachItem([]);
     } catch (error) {
@@ -93,7 +93,7 @@ function Todo() {
 
   const removeItem = async (textId: any) => {
     try {
-      await fetch(`http://localhost:8000/api/todos/${textId}`, {
+      await fetch(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${textId}`, {
         method: "DELETE",
       });
       const remove_item = eachItem.filter((_element: any, ind) => {
