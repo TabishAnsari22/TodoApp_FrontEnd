@@ -143,7 +143,7 @@ function Todo() {
           </i>
         </h1>
       </div>
-      <div className="flex justify-center">
+      <div style={{display:'flex', justifyContent:'center'}}>
         <div className="input_field">
           <input
             type="text"
@@ -201,7 +201,7 @@ function Todo() {
           <label>Pleace fill the Data 😊</label>
         </div>
       )}
-      <div className="flex justify-center">
+      <div style={{display:'flex', justifyContent:'center'}}>
         <div
           className="parent"
           // className="border w-[30%] mt-4 rounded-3xl bg-[#ffffffb4] opacity-60 pt-[20px] "
