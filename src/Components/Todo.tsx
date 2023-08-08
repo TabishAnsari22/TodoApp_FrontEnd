@@ -11,10 +11,11 @@ function Todo() {
   useEffect(() => {
     fetchTodos();
   }, []);
+  
 
   async function fetchTodos() {
     try {
-      const response = await axios.get("https://clever-pike-getup.cyclic.app/api/todos");
+      const response = await axios.get("https://real-ruby-slug-wrap.cyclic.app/api/todos");
       setEachItem(response.data);
     } catch (error) {
       console.error("Error fetching todos:", error);
@@ -39,7 +40,7 @@ function Todo() {
       });
 
       try {
-        await axios.put(`https://clever-pike-getup.cyclic.app/api/todos/${editIndex}`, {
+        await axios.put(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${editIndex}`, {
           text: inputVal,
         });
         setEachItem(updatedItems);
@@ -61,7 +62,7 @@ function Todo() {
       const currentTime = new Date().toLocaleTimeString();
       const itemId = Math.random();
 
-      const response = await axios.post("https://clever-pike-getup.cyclic.app/api/todos", {
+      const response = await axios.post("https://real-ruby-slug-wrap.cyclic.app/api/todos", {
         text: inputVal,
         textId: itemId,
         time: currentTime,
@@ -76,7 +77,7 @@ function Todo() {
 
   const removeAll = async () => {
     try {
-      const response = await axios.delete("https://clever-pike-getup.cyclic.app/api/todos");
+      const response = await axios.delete("https://real-ruby-slug-wrap.cyclic.app/api/todos");
       console.log(response.data.message);
       steInputVal("");
       setEachItem([]);
@@ -87,7 +88,7 @@ function Todo() {
 
   const removeItem = async (textId: any) => {
     try {
-      await fetch(`https://clever-pike-getup.cyclic.app/api/todos/${textId}`, {
+      await fetch(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${textId}`, {
         method: "DELETE",
       });
       const remove_item = eachItem.filter((_element: any, ind) => {
