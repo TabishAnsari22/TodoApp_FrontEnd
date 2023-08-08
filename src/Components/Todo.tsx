@@ -7,15 +7,16 @@ function Todo() {
   const [eachItem, setEachItem] = useState<string[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [error, setError] = useState(false);
+  const [changeBtn, setChangeBtn] = useState(false);
+  const [cancleBtn, setCancleBtn] = useState(false);
 
   useEffect(() => {
     fetchTodos();
   }, []);
-  
 
   async function fetchTodos() {
     try {
-      const response = await axios.get("https://real-ruby-slug-wrap.cyclic.app/api/todos");
+      const response = await axios.get("http://localhost:8000/api/todos");
       setEachItem(response.data);
     } catch (error) {
       console.error("Error fetching todos:", error);
@@ -23,6 +24,7 @@ function Todo() {
   }
 
   const handleEdit = (id: any) => {
+    setCancleBtn(true);
     const editItem: any = eachItem.find((item: any) => item._id === id);
     if (editItem) {
       setEditIndex(id);
@@ -31,6 +33,8 @@ function Todo() {
   };
 
   const handleUpdate = async () => {
+    setCancleBtn(false);
+    setChangeBtn(true);
     if (editIndex !== null) {
       const updatedItems = eachItem.map((item: any) => {
         if (item._id === editIndex) {
@@ -40,7 +44,7 @@ function Todo() {
       });
 
       try {
-        await axios.put(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${editIndex}`, {
+        await axios.put(`http://localhost:8000/api/todos/${editIndex}`, {
           text: inputVal,
         });
         setEachItem(updatedItems);
@@ -53,6 +57,8 @@ function Todo() {
   };
 
   const handleCancelEdit = () => {
+    setCancleBtn(false);
+    setChangeBtn(false);
     setEditIndex(null);
     steInputVal("");
   };
@@ -62,7 +68,7 @@ function Todo() {
       const currentTime = new Date().toLocaleTimeString();
       const itemId = Math.random();
 
-      const response = await axios.post("https://real-ruby-slug-wrap.cyclic.app/api/todos", {
+      const response = await axios.post("http://localhost:8000/api/todos", {
         text: inputVal,
         textId: itemId,
         time: currentTime,
@@ -77,9 +83,8 @@ function Todo() {
 
   const removeAll = async () => {
     try {
-      const response = await axios.delete("https://real-ruby-slug-wrap.cyclic.app/api/todos");
+      const response = await axios.delete("http://localhost:8000/api/todos");
       console.log(response.data.message);
-      steInputVal("");
       setEachItem([]);
     } catch (error) {
       console.error("Error deleting todos:", error);
@@ -88,7 +93,7 @@ function Todo() {
 
   const removeItem = async (textId: any) => {
     try {
-      await fetch(`https://real-ruby-slug-wrap.cyclic.app/api/todos/${textId}`, {
+      await fetch(`http://localhost:8000/api/todos/${textId}`, {
         method: "DELETE",
       });
       const remove_item = eachItem.filter((_element: any, ind) => {
@@ -125,78 +130,105 @@ function Todo() {
           </i>
         </h1>
       </div>
-      <div className="input_field">
-        <input
-          type="text"
-          placeholder="AddItem"
-          onChange={(e) => {
-            steInputVal(e.target.value);
-            setError(false);
-          }}
-          autoComplete="off"
-          value={inputVal}
-          ref={name}
-        />
-        <div className="btnContainer">
-          <button className="btn_style" onClick={useRefe}>
-            Add
-          </button>
+      <div className="flex justify-center">
+        <div className="input_field">
+          <input
+            type="text"
+            placeholder="AddItem"
+            onChange={(e) => {
+              steInputVal(e.target.value);
+              setError(false);
+            }}
+            autoComplete="off"
+            value={inputVal}
+            ref={name}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && changeBtn == false) {
+                useRefe();
+              }
+            }}
+          />
+          <div className="btnContainer">
+            {changeBtn == false ? (
+              <button className="btn_style12" onClick={useRefe}>
+                <i
+                  className="fas fa-circle-plus"
+                  style={{ color: "#000000" }}
+                ></i>
+              </button>
+            ) : (
+              <div className="flex justify-between">
+                <button className="btn_style12">
+                  <i
+                    className="fas fa-circle-plus"
+                    style={{ color: "#000000" }}
+                    onClick={handleUpdate}
+                  ></i>
+                </button>
+              </div>
+            )}
+
+            <button className="btn_style12">
+              {cancleBtn == true ? (
+                <i
+                  className="fas fa-xmark"
+                  style={{ color: "#000000" }}
+                  onClick={handleCancelEdit}
+                ></i>
+              ) : (
+                <></>
+              )}
+            </button>
+          </div>
         </div>
       </div>
+
       {error && (
-        <div style={{ textAlign: "center",color:"red",paddingTop:'10px' }}>
+        <div style={{ textAlign: "center", color: "red", paddingTop: "10px" }}>
           <label>Pleace fill the Data 😊</label>
         </div>
       )}
-      {eachItem.map((element: any, ind) => {
-        return (
-          <div key={ind} className="showItems">
-            <div className="eachItem">
-              <div className="showItem">
-                {editIndex === element._id ? (
-                  <input
-                    className="border-none outline-none pl-4"
-                    type="text"
-                    value={inputVal}
-                    onChange={(e) => steInputVal(e.target.value)}
-                  />
-                ) : (
-                  <h3 id="item">{element?.text}</h3>
-                )}
-                <div>
-                  {editIndex === element._id ? (
-                    <>
-                      <button className="btn_style" onClick={handleUpdate}>
-                        Update
+      <div className="flex justify-center">
+        <div className='parent' 
+        // className="border w-[30%] mt-4 rounded-3xl bg-[#ffffffb4] opacity-60 pt-[20px] "
+        >
+          
+          {eachItem.map((element: any, ind) => {
+            return (
+              
+              <div key={ind} className="showItems">
+                <div className="eachItem">
+                  <div className="showItem">
+                    <h3 id="item">{element?.text}</h3>
+                    <div>
+                      <button
+                        className="btn_style1"
+                        onClick={() => {
+                          handleEdit(element._id);
+                          setChangeBtn(true);
+                        }}
+                      >
+                        <i className="fas fa-pencil"></i>
                       </button>
-                      <button className="btn_style" onClick={handleCancelEdit}>
-                        Cancel
+                      <button
+                        className="btn_style1"
+                        onClick={() => {
+                          removeItem(element._id);
+                        }}
+                      >
+                        <i
+                          className="far fa-trash-alt"
+                          style={{ color: "black" }}
+                        ></i>
                       </button>
-                    </>
-                  ) : (
-                    <button
-                      className="btn_style"
-                      onClick={() => {
-                        removeItem(element._id);
-                      }}
-                    >
-                      X
-                    </button>
-                  )}
-                  <button
-                    className="btn_style"
-                    onClick={() => {
-                      handleEdit(element._id);
-                    }}
-                  >
-                    Edit
-                  </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      </div>
       <div className="main_btn">
         <button className="btn_styl" onClick={removeAll}>
           Remove All

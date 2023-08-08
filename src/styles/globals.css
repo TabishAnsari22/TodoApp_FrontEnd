@@ -1,12 +1,14 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; 
+@import "~@fortawesome/fontawesome-free/css/all.css";
 
 
 
 body {
   /* background-color: rgb(2, 2, 37); */
-  background-color: black;
+  background: rgb(0,197,254);
+background: linear-gradient(90deg, rgba(0,197,254,1) 26%, rgba(9,121,29,1) 97%);
 }
 
 .main_div {
@@ -31,6 +33,13 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 2vh;
+  width: 30%;
+  background-color: #ffffffb4;
+  opacity: 60%;
+  padding: 20px;
+  border-radius: 20px;
+
+  /* border: 1px solid pink; */
 }
 
 .input_field input {
@@ -40,6 +49,7 @@ body {
   border: none;
   font-size: 22px;
   text-align: center;
+  border-radius: 20px;
 }
 
 .showItems {
@@ -52,11 +62,13 @@ body {
   
     background-color: #fff;
     display: flex;
-    margin-right: 3.9vw;
+    /* margin-right: 3.9vw; */
     justify-content: space-between;
-    width: 25vw;
+    width: 28vw;
     align-items: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
 
 .main {
@@ -76,6 +88,24 @@ body {
   cursor: pointer;
   border-radius: 3px;
   margin-left: 1rem;
+}
+.btn_style12 {
+  /* padding: 0.8rem 0.8rem; */
+  /* background-color: rgb(173, 89, 89); */
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-left: 1rem;
+}
+.btn_style1 {
+  padding: 0.8rem 0.8rem;
+  outline: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .btn_styl {
@@ -110,4 +140,50 @@ body {
 .Logo {
   width: 150px;
   height: 150px;
+}
+
+.parent{
+  width: 30%;
+  margin-top: 20px;
+  border-radius: 1.5rem;
+  background-color: #ffffffb4;
+  opacity: 0.6;
+  padding-top: 20px;
+}
+
+
+@media screen and (max-width: 425px) {
+.input_field{
+  width: 90% !important;
+}
+.input_field input {
+  width: 50vw !important;
+}
+.parent{
+  width: 90% !important;
+}
+.showItem{
+  width: 80vw !important;
+}
+.btn_styl {
+  margin-left: 8.5vw !important;
+}
+}
+
+@media screen and (max-width: 1024px) {
+.input_field{
+  width: 50%;
+}
+.input_field input {
+  width: 36vw;
+}
+.parent{
+  width: 50%;
+}
+.showItem{
+  width: 45vw;
+}
+.btn_styl {
+  margin-left: 25.5vw;
+}
 }
